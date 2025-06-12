@@ -25,14 +25,18 @@ router.post('/send-otp', async (req, res) => {
   await user.save();
 
   try {
+    console.log(`Sending OTP ${otp} to ${phone}`);
     await client.messages.create({
       body: `Your OTP is ${otp}`,
       from: TWILIO_PHONE_NUMBER,
-      to: `+91${phone}`
+     to: phone.startsWith('+') ? phone : `+91${phone}`
+
+      // to: `+91${phone}`
     });
 
     res.json({ success: true, message: 'OTP sent' });
   } catch (err) {
+     console.error('Twilio error:', err);
     res.status(500).json({ success: false, message: 'SMS failed', error: err.message });
   }
 });
