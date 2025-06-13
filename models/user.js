@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema({
     return !this.googleId; // agar googleId nahi hai, matlab OTP login ho raha
   },
   unique: true,
+   sparse: true
 },
 
   // phone: { type: String, required: true, unique: true },
