@@ -58,7 +58,7 @@ router.post('/verify-otp', async (req, res) => {
   user.otpExpiresAt = null;
   await user.save();
 
-  const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: '1d' });
+  const token = jwt.sign({ userId: user._id }, JWT_SECRET);
   res.json({ success: true, token });
 });
 
